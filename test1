@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flappy Jump — Single file HTML5 game</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#071024 0%,var(--bg) 100%);color:#e6eef6}
+    .wrap{width:980px;max-width:96vw;padding:18px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.05));box-shadow:0 10px 30px rgba(2,6,23,0.6);display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .panel{padding:16px;border-radius:12px;background:linear-gradient(180deg,var(--glass),transparent);backdrop-filter:blur(6px);}
+    .game-area{position:relative;display:flex;align-items:center;justify-content:center}
+    canvas{background:linear-gradient(180deg,#093046 0%, #071824 60%);border-radius:10px;width:100%;height:auto;display:block}
+    h1{margin:0;font-size:20px}
+    .controls{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+    .btn{appearance:none;border:0;padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#0ea5a1);color:#022;cursor:pointer;font-weight:600}
+    .muted{color:var(--muted);font-size:13px}
+    .stat{display:flex;justify-content:space-between;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);margin-top:8px}
+    .footer{font-size:12px;color:var(--muted);margin-top:8px}
+    .tip{font-size:13px;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02)}
+    @media (max-width:880px){.wrap{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="panel game-area">
+      <div style="width:100%">
+        <h1>Flappy Jump</h1>
+        <p class="muted">A small, responsive Flappy-style game built with canvas. Click/tap or press Space to flap.</p>
+        <div style="margin-top:12px">
+          <canvas id="game" width="720" height="540"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <aside class="panel">
+      <h2 style="margin:0 0 6px 0">Controls & Info</h2>
+      <div class="controls">
+        <div class="tip">Controls: <strong>Space</strong> / <strong>Click</strong> / <strong>Tap</strong> to flap. Press <strong>P</strong> to pause.</div>
+        <button id="startBtn" class="btn">Start / Restart</button>
+        <div class="stat"><div>Score</div><div id="score">0</div></div>
+        <div class="stat"><div>Best</div><div id="best">0</div></div>
+        <div class="stat"><div>Speed</div><div id="speed">1.0x</div></div>
+        <div class="stat"><div>Difficulty</div><div id="diff">Normal</div></div>
+        <div style="margin-top:10px">
+          <label class="muted">Difficulty</label>
+          <select id="difficulty" style="width:100%;padding:8px;border-radius:8px;margin-top:6px">
+            <option value="0.85">Easy</option>
+            <option value="1" selected>Normal</option>
+            <option value="1.25">Hard</option>
+            <option value="1.5">Insane</option>
+          </select>
+        </div>
+
+        <div style="margin-top:12px" class="muted">How to host</div>
+        <div class="muted" style="font-size:13px">Save this page as <code>flappy-jump.html</code> and upload it to your web host (public folder). Then open <code>https://your-site.com/flappy-jump.html</code>.</div>
+        <div class="footer">LocalStorage used for best score. Works on desktop & mobile.</div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+  // Flappy Jump - Single File
+  (function(){
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width; let H = canvas.height;
+
+    // scale canvas to device pixel ratio for crispness
+    function fitCanvas(){
+      const ratio = Math.max(1, window.devicePixelRatio || 1);
+      const styleW = canvas.clientWidth;
+      const styleH = canvas.clientHeight || (styleW * 3/4);
+      canvas.width = Math.floor(styleW * ratio);
+      canvas.height = Math.floor(styleH * ratio);
+      canvas.style.height = styleH + 'px';
+      canvas.style.width = styleW + 'px';
+      ctx.setTransform(ratio,0,0,ratio,0,0);
+      W = styleW; H = styleH;
+    }
+    window.addEventListener('resize', fitCanvas);
+    fitCanvas();
+
+    // Game state
+    let running=false, paused=false, gameOver=false;
+    let frames=0; let score=0; let best = parseInt(localStorage.getItem('fj_best')||'0',10);
+    const scoreEl = document.getElementById('score');
+    const bestEl = document.getElementById('best'); bestEl.textContent = best;
+    const speedEl = document.getElementById('speed');
+    const diffEl = document.getElementById('diff');
+
+    // Config (can tweak)
+    let config = {
+      gravity: 0.55,
+      flap: -9.5,
+      pipeGap: 150,
+      pipeWidth: 56,
+      pipeInterval: 120, // frames
+      scrollSpeed: 2.6
+    };
+
+    // Player
+    const bird = { x: 120, y: H/2, w:34, h:24, vy:0, rot:0 };
+    let pipes = [];
+
+    // Helpers
+    function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+
+    function reset(){
+      frames=0; score=0; pipes=[]; bird.x=120; bird.y=H/2; bird.vy=0; bird.rot=0; gameOver=false; paused=false;
+      running=true; updateUI();
+    }
+
+    function updateUI(){
+      scoreEl.textContent = score;
+      bestEl.textContent = best;
+    }
+
+    // Input
+    function flap(){ if(!running) reset(); if(gameOver) return; bird.vy = config.flap; frames+=0; }
+    window.addEventListener('keydown', e=>{
+      if(e.code==='Space'){ e.preventDefault(); flap(); }
+      if(e.key==='p' || e.key==='P'){ paused = !paused; }
+    });
+    window.addEventListener('pointerdown', e=>{ flap(); });
+    window.addEventListener('touchstart', e=>{ flap(); }, {passive:true});
+
+    document.getElementById('startBtn').addEventListener('click', ()=>{ reset(); });
+    document.getElementById('difficulty').addEventListener('change', e=>{
+      const mul = parseFloat(e.target.value);
+      config.pipeGap = Math.max(100, 150 / mul);
+      config.scrollSpeed = 2.6 * mul;
+      config.flap = -9.5 * (1/mul);
+      speedEl.textContent = mul.toFixed(2) + 'x';
+      diffEl.textContent = ({'0.85':'Easy','1':'Normal','1.25':'Hard','1.5':'Insane'})[e.target.value] || 'Custom';
+    });
+
+    // Core game functions
+    function spawnPipe(){
+      const topHeight = rand(40, H - config.pipeGap - 80);
+      pipes.push({x: W + 20, top: topHeight, passed:false});
+    }
+
+    function update(){
+      if(!running || paused || gameOver) return;
+      frames++;
+
+      // spawn pipes on interval
+      const interval = Math.max(60, Math.floor(config.pipeInterval));
+      if(frames % Math.floor(90 * (1/(config.scrollSpeed/2.6))) === 0) spawnPipe();
+
+      // physics
+      bird.vy += config.gravity;
+      bird.y += bird.vy;
+      bird.rot = Math.max(-0.5, Math.min(1.2, bird.vy * 0.03));
+
+      // move pipes
+      for(let i=pipes.length-1;i>=0;i--){
+        const p = pipes[i];
+        p.x -= config.scrollSpeed;
+        // scoring
+        if(!p.passed && p.x + config.pipeWidth < bird.x){ p.passed = true; score++; updateUI(); if(score>best){ best=score; localStorage.setItem('fj_best',best); } }
+        // remove offscreen
+        if(p.x < -config.pipeWidth-20) pipes.splice(i,1);
+      }
+
+      // collision with ground or ceiling
+      if(bird.y + bird.h/2 >= H || bird.y - bird.h/2 <= 0){ endGame(); }
+
+      // collision with pipes
+      for(const p of pipes){
+        const bx = bird.x, by = bird.y;
+        const pw = config.pipeWidth;
+        // top pipe rectangle
+        if(bx + bird.w/2 > p.x && bx - bird.w/2 < p.x + pw){
+          if(by - bird.h/2 < p.top || by + bird.h/2 > p.top + config.pipeGap){ endGame(); }
+        }
+      }
+    }
+
+    function endGame(){
+      gameOver = true; running=false; updateUI();
+    }
+
+    // Draw
+    function drawBackground(){
+      // sky gradient already in canvas background, draw simple parallax ground
+      ctx.save();
+      // mountains/ground
+      const gY = H - 40;
+      ctx.fillStyle = '#05202b';
+      ctx.fillRect(0,gY,W,40);
+      // decorative lines
+      ctx.fillStyle = 'rgba(255,255,255,0.02)';
+      for(let i=0;i<30;i++){ ctx.fillRect((i*60 + (frames*0.4)%60), gY+8, 40,2); }
+      ctx.restore();
+    }
+
+    function drawBird(){
+      ctx.save();
+      ctx.translate(bird.x, bird.y);
+      ctx.rotate(bird.rot);
+      // body
+      ctx.fillStyle = '#ffd166';
+      ctx.beginPath(); ctx.ellipse(0,0,bird.w/2,bird.h/2,0,0,Math.PI*2); ctx.fill();
+      // wing
+      ctx.fillStyle = '#f59e0b'; ctx.beginPath(); ctx.ellipse(-6,0,9,5,Math.PI/6,0,Math.PI*2); ctx.fill();
+      // eye
+      ctx.fillStyle = '#04182a'; ctx.beginPath(); ctx.arc(6,-4,3,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+
+    function drawPipes(){
+      for(const p of pipes){
+        ctx.save();
+        // top pipe
+        ctx.fillStyle = '#16a34a';
+        ctx.fillRect(p.x, 0, config.pipeWidth, p.top);
+        // bottom pipe
+        ctx.fillRect(p.x, p.top+config.pipeGap, config.pipeWidth, H - (p.top+config.pipeGap) - 40);
+        // pipe caps
+        ctx.fillStyle = '#0f6b2f';
+        ctx.fillRect(p.x-4, p.top-8, config.pipeWidth+8, 8);
+        ctx.fillRect(p.x-4, p.top+config.pipeGap, config.pipeWidth+8, 8);
+        ctx.restore();
+      }
+    }
+
+    function render(){
+      // clear
+      ctx.clearRect(0,0,W,H);
+      // sky is canvas background CSS; draw decorative shapes
+      drawBackground();
+      drawPipes();
+      drawBird();
+
+      // UI
+      ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.font='700 28px Inter, sans-serif';
+      ctx.fillText(String(score), 18, 40);
+      if(gameOver){
+        ctx.fillStyle='rgba(0,0,0,0.6)'; ctx.fillRect(W/2-160, H/2-60, 320,120);
+        ctx.fillStyle='#fff'; ctx.font='700 22px Inter, sans-serif'; ctx.fillText('Game Over', W/2-62, H/2-6);
+        ctx.font='600 14px Inter, sans-serif'; ctx.fillText('Click Start or press Space to play again', W/2-140, H/2+26);
+      }
+      if(paused && !gameOver){ ctx.fillStyle='rgba(255,255,255,0.08)'; ctx.fillRect(0,0,W,H); ctx.fillStyle='#fff'; ctx.font='700 28px Inter, sans-serif'; ctx.fillText('Paused', W/2-46, H/2); }
+    }
+
+    // Main loop
+    function loop(){ update(); render(); requestAnimationFrame(loop); }
+    loop();
+
+    // initial spawn so game isn't empty
+    spawnPipe(); spawnPipe();
+
+    // Expose some functions for debugging/customization in console
+    window.FJ = {
+      reset, endGame, config, pipes, bird
+    };
+
+    // Small autoplay start to show demo state
+    setTimeout(()=>{ render(); }, 200);
+  })();
+  </script>
+</body>
+</html>
