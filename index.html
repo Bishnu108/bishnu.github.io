@@ -8,12 +8,12 @@
 <style>
 /* Body & Theme */
 body.light {
-  background: #000000; /* Black background */
-  color: #FF6B00;      /* Orange text */
+  background:#000000; /* Black background */
+  color:#FF6B00;      /* Orange text */
 }
 body.dark {
-  background: #0a0a0a; /* Slightly lighter black for dark mode */
-  color: #FF6B00;      /* Orange text */
+  background:#0a0a0a; /* Slightly lighter black */
+  color:#FF6B00;
 }
 html { scroll-behavior: smooth; }
 
@@ -26,7 +26,7 @@ nav {
   position:sticky;
   top:0;
   z-index:100;
-  background: #000000;
+  background: rgba(0,0,0,0.9);
 }
 nav .logo { font-weight:700; font-size:1.5rem; color:#FF6B00; cursor:pointer; }
 nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:#FF6B00; }
@@ -41,7 +41,7 @@ nav .menu button {
   color:#000000;
 }
 
-/* Landing Section */
+/* Landing Hero Section */
 #landing {
   text-align:center;
   padding:150px 20px;
@@ -51,24 +51,33 @@ nav .menu button {
 
 /* Hero Text */
 #hero-text {
-  font-size:3rem;
-  color:#FF6B00; /* Orange */
+  font-size:4rem;
+  font-weight:700;
+  color:#FF6B00;
+  margin-bottom:20px;
   transition: opacity 0.5s ease, transform 0.3s ease;
   cursor:default;
 }
 #hero-text:hover {
-  opacity:0.3;           /* Fade effect */
-  transform: scale(1.05); /* Slight zoom */
+  opacity:0.3;
+  transform: scale(1.05);
+}
+
+/* Subtitle */
+#landing p {
+  font-size:1.5rem;
+  margin-bottom:40px;
 }
 
 /* Buttons */
-.buttons { margin-top:30px; }
+.buttons { margin-top:20px; }
 .btn {
   margin: 10px;
-  padding: 10px 25px;
-  background:#FF6B00;  /* Orange */
-  color:#000000;       /* Black text */
+  padding: 12px 28px;
+  background:#FF6B00;
+  color:#000000;
   text-decoration:none;
+  font-weight:600;
   border-radius:8px;
   transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -93,9 +102,9 @@ a:hover { text-decoration:underline; }
 
 <!-- Navbar -->
 <nav>
-  <div class="logo" onclick="location.href='index.html'">PlayWithMe</div>
+  <div class="logo" onclick="location.href='landing.html'">PlayWithMe</div>
   <div class="menu">
-    <a href="index.html">Home</a>
+    <a href="landing.html">Home</a>
     <a href="resume.html">Resume</a>
     <a href="projects.html">Projects</a>
     <button onclick="toggleTheme()">Toggle Theme</button>
@@ -114,7 +123,7 @@ a:hover { text-decoration:underline; }
 
 <!-- Footer -->
 <footer>
-  © 2025 Bishnu Narayan — Built with ❤️ | <a href="#landing">Back to Top</a>
+  © 2025 John Doe — Built with ❤️ | <a href="#landing">Back to Top</a>
 </footer>
 
 <!-- Vanta.js Waves Background -->
