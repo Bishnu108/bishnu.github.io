@@ -6,35 +6,34 @@
 <title>PlayWithMe | Welcome</title>
 <link rel="stylesheet" href="style.css">
 <style>
-body.light { background:#f3f4f6; color:#111827; }
-body.dark { background:#0f172a; color:#e2e8f0; }
+/* Colors */
+body.light { background:#0a0a0a; color:white; }
+body.dark { background:#000000; color:white; }
 html { scroll-behavior: smooth; }
 
 /* Navbar */
-nav { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background: rgba(0,0,0,0.05); position:sticky; top:0; z-index:100; }
-nav .logo { font-weight:700; font-size:1.5rem; color:#2563eb; cursor:pointer; }
+nav { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background: rgba(0,0,0,0.7); position:sticky; top:0; z-index:100; }
+nav .logo { font-weight:700; font-size:1.5rem; color:#FF6B00; cursor:pointer; }
 nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:inherit; }
 nav .menu button { margin-left:20px; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
-body.light nav button { background:#2563eb; color:white; }
-body.dark nav button { background:#22d3ee; color:#0f172a; }
+body.light nav button { background:#FF6B00; color:white; }
+body.dark nav button { background:#FF6B00; color:white; }
 
 /* Landing Section */
 #landing { display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; text-align:center; position:relative; z-index:1; }
-#landing h1 { font-size:3rem; color:#2563eb; margin-bottom:20px; text-shadow:2px 2px 5px rgba(0,0,0,0.3); }
+#landing h1 { font-size:3rem; color:#FF6B00; margin-bottom:20px; text-shadow:2px 2px 10px rgba(0,0,0,0.7); }
 #landing p { font-size:1.2rem; margin-bottom:40px; }
 
 /* Buttons */
 .buttons { display:flex; gap:30px; flex-wrap:wrap; justify-content:center; }
-.btn { padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:600; font-size:1.1rem; transition: transform 0.3s, box-shadow 0.3s; }
-body.light .btn { background:#2563eb; color:white; }
-body.dark .btn { background:#22d3ee; color:#0f172a; }
-.btn:hover { transform: scale(1.1); box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+.btn { padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:600; font-size:1.1rem; transition: transform 0.3s, box-shadow 0.3s; background:#FF6B00; color:white; }
+.btn:hover { transform: scale(1.1); box-shadow:0 10px 25px rgba(255,107,0,0.7); background:#FF8A33; }
 </style>
 </head>
 <body class="light">
 
 <nav>
-  <div class="logo" onclick="location.href='index.html'">Bishnu's Page</div>
+  <div class="logo" onclick="location.href='index.html'">Bishnu's page</div>
   <div class="menu">
     <a href="index.html">Home</a>
     <a href="resume.html">Resume</a>
@@ -65,7 +64,9 @@ VANTA.WAVES({
   minWidth: 200.00,
   scale: 1.0,
   scaleMobile: 1.0,
-  color: 0x2563eb
+  color: 0xFF6B00, // Orange waves
+  shininess: 50,
+  waveHeight: 20
 });
 
 // Dark/Light Toggle
@@ -76,7 +77,7 @@ function toggleTheme(){
 }
 
 // Typing Animation
-const texts = ["Welcome to My Page", "Games & Fun", "Your Resume Portal"];
+const texts = ["Welcome to PlayWithMe", "Games & Fun", "Your Resume Portal"];
 let i = 0, j = 0, currentText = '', isDeleting = false;
 const speed = 100;
 
