@@ -4,41 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>John Doe | Resume</title>
+<link rel="stylesheet" href="style.css">
 <style>
-/* Fonts and Reset */
-* { box-sizing: border-box; margin:0; padding:0; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s; }
-body.light { background: #f3f4f6; color: #111827; }
-body.dark { background: #0f172a; color: #e2e8f0; }
+body.light { background:#f3f4f6; color:#111827; }
+body.dark { background:#0f172a; color:#e2e8f0; }
 
 /* Navbar */
 nav { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; position:sticky; top:0; z-index:100; background: rgba(0,0,0,0.05); }
-nav h1 { color:#2563eb; cursor:pointer; }
-nav button { padding:8px 14px; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
+nav .logo { font-weight:700; font-size:1.5rem; color:#2563eb; cursor:pointer; }
+nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:inherit; }
+nav .menu button { margin-left:20px; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
 body.light nav button { background:#2563eb; color:white; }
 body.dark nav button { background:#22d3ee; color:#0f172a; }
 
-/* Sections */
-section { max-width:900px; margin:50px auto; padding:20px; }
-h2 { color:#2563eb; margin-bottom:10px; }
-ul { list-style: square; margin-left:20px; margin-top:10px; }
+/* Resume Section */
+#resume-section { padding:100px 20px; max-width:1200px; margin:auto; text-align:center; position:relative; z-index:1; }
 
-/* Cards / Boxes */
-.box { background: rgba(255,255,255,0.05); padding:15px 20px; border-radius:12px; margin-bottom:20px; }
-body.light .box { background:#ffffff; border:1px solid #d1d5db; }
+/* Tilt Cards */
+.card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-top:50px; }
+.card { background: rgba(255,255,255,0.1); border-radius:15px; padding:20px; width:250px; height:200px; perspective:1000px; transition: transform 0.3s; cursor:pointer; }
+.card:hover { transform: rotateY(15deg) rotateX(5deg); }
+body.light .card { background:white; color:#111827; box-shadow:0 5px 20px rgba(0,0,0,0.2); }
+body.dark .card { background:#1e293b; color:#e2e8f0; box-shadow:0 5px 20px rgba(0,0,0,0.5); }
+
+/* Card Content */
+.card h3 { margin-bottom:10px; color:#2563eb; }
+.card p { font-size:0.9rem; line-height:1.4; }
+
+/* Section Titles */
+h1 { font-size:3rem; color:#2563eb; margin-bottom:10px; text-shadow:2px 2px 5px rgba(0,0,0,0.3); }
+h2 { font-size:2rem; color:#2563eb; margin-bottom:30px; }
 
 /* Footer */
 footer { text-align:center; padding:20px; font-size:0.9rem; opacity:0.8; }
-
-/* Links */
 a { color:#2563eb; text-decoration:none; }
 a:hover { text-decoration:underline; }
-
 </style>
 </head>
 <body class="light">
 
 <nav>
-  <div class="logo">PlayWithMe</div>
+  <div class="logo" onclick="location.href='index.html'">PlayWithMe</div>
   <div class="menu">
     <a href="index.html">Home</a>
     <a href="resume.html">Resume</a>
@@ -47,56 +53,61 @@ a:hover { text-decoration:underline; }
   </div>
 </nav>
 
+<div id="resume-section"></div>
 
-<section id="about" class="box">
-  <h2>About Me</h2>
-  <p>Hi! I'm John Doe, a passionate Web Developer and Open Source Enthusiast. I love building clean, responsive, and modern web applications.</p>
-</section>
+<section id="resume-section" class="card-section">
+  <h1>John Doe</h1>
+  <p>Web Developer | Open Source Enthusiast | Programmer</p>
 
-<section id="skills" class="box">
-  <h2>Skills</h2>
-  <ul>
-    <li>HTML, CSS, JavaScript</li>
-    <li>React, Node.js</li>
-    <li>Python, Django</li>
-    <li>Git & GitHub</li>
-    <li>Responsive Web Design</li>
-  </ul>
-</section>
+  <div class="card-container">
+    <div class="card">
+      <h3>Skills</h3>
+      <p>HTML, CSS, JavaScript<br>React, Node.js<br>Python, Django<br>Responsive Design</p>
+    </div>
 
-<section id="experience" class="box">
-  <h2>Experience</h2>
-  <p><strong>Software Developer</strong> at ABC Corp (2023-Present)</p>
-  <p><strong>Frontend Developer Intern</strong> at XYZ Solutions (2022-2023)</p>
-</section>
+    <div class="card">
+      <h3>Experience</h3>
+      <p>Software Developer at ABC Corp (2023-Present)<br>Frontend Intern at XYZ Solutions (2022-2023)</p>
+    </div>
 
-<section id="education" class="box">
-  <h2>Education</h2>
-  <p>B.Tech in Computer Science, XYZ University (2020)</p>
-</section>
+    <div class="card">
+      <h3>Education</h3>
+      <p>B.Tech in Computer Science, XYZ University (2020)</p>
+    </div>
 
-<section id="contact" class="box">
-  <h2>Contact</h2>
-  <p>Email: <a href="mailto:john@example.com">john@example.com</a></p>
-  <p>Phone: +91 1234567890</p>
-  <p>GitHub: <a href="https://github.com/johndoe" target="_blank">https://github.com/johndoe</a></p>
-  <p>LinkedIn: <a href="https://linkedin.com/in/johndoe" target="_blank">https://linkedin.com/in/johndoe</a></p>
+    <div class="card">
+      <h3>Contact</h3>
+      <p>Email: <a href="mailto:john@example.com">john@example.com</a><br>
+      Phone: +91 1234567890<br>
+      GitHub: <a href="https://github.com/johndoe" target="_blank">github.com/johndoe</a><br>
+      LinkedIn: <a href="https://linkedin.com/in/johndoe" target="_blank">linkedin.com/in/johndoe</a></p>
+    </div>
+  </div>
 </section>
 
 <footer>
-  © 2025 John Doe — Built with ❤️ | <a href="#about">Back to Top</a>
+  © 2025 John Doe — Built with ❤️ | <a href="#resume-section">Back to Top</a>
 </footer>
 
+<!-- VANTA.JS Waves -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
 <script>
+VANTA.WAVES({
+  el: "#resume-section",
+  mouseControls: true,
+  touchControls: true,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.00,
+  scaleMobile: 1.00,
+  color: 0x2563eb
+})
+
 function toggleTheme(){
-  const body = document.body;
-  if(body.classList.contains('light')){
-    body.classList.remove('light');
-    body.classList.add('dark');
-  } else {
-    body.classList.remove('dark');
-    body.classList.add('light');
-  }
+    const body = document.body;
+    body.classList.toggle('light');
+    body.classList.toggle('dark');
 }
 </script>
 
