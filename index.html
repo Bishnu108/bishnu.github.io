@@ -5,11 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlayWithMe | Welcome</title>
 <link rel="stylesheet" href="style.css">
+<style>
+body.light { background:#f3f4f6; color:#111827; }
+body.dark { background:#0f172a; color:#e2e8f0; }
+html { scroll-behavior: smooth; }
+
+/* Navbar */
+nav { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background: rgba(0,0,0,0.05); position:sticky; top:0; z-index:100; }
+nav .logo { font-weight:700; font-size:1.5rem; color:#2563eb; cursor:pointer; }
+nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:inherit; }
+nav .menu button { margin-left:20px; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
+body.light nav button { background:#2563eb; color:white; }
+body.dark nav button { background:#22d3ee; color:#0f172a; }
+
+/* Landing Section */
+#landing { display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; text-align:center; position:relative; z-index:1; }
+#landing h1 { font-size:3rem; color:#2563eb; margin-bottom:20px; text-shadow:2px 2px 5px rgba(0,0,0,0.3); }
+#landing p { font-size:1.2rem; margin-bottom:40px; }
+
+/* Buttons */
+.buttons { display:flex; gap:30px; flex-wrap:wrap; justify-content:center; }
+.btn { padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:600; font-size:1.1rem; transition: transform 0.3s, box-shadow 0.3s; }
+body.light .btn { background:#2563eb; color:white; }
+body.dark .btn { background:#22d3ee; color:#0f172a; }
+.btn:hover { transform: scale(1.1); box-shadow:0 10px 25px rgba(0,0,0,0.3); }
+</style>
 </head>
 <body class="light">
 
 <nav>
-  <div class="logo">PlayWithMe</div>
+  <div class="logo" onclick="location.href='index.html'">PlayWithMe</div>
   <div class="menu">
     <a href="index.html">Home</a>
     <a href="resume.html">Resume</a>
@@ -18,15 +43,59 @@
   </div>
 </nav>
 
-<section class="intro">
-  <h1>Welcome to PlayWithMe</h1>
-  <p>Your personal portal for games and resume.</p>
+<section id="landing">
+  <h1 id="animated-text">Welcome to PlayWithMe</h1>
+  <p>Your personal portal for games and resume</p>
   <div class="buttons">
     <a href="resume.html" class="btn">View Resume</a>
     <a href="projects.html" class="btn">View Projects</a>
   </div>
 </section>
 
-<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
+
+<script>
+// Vanta.js Animated Background
+VANTA.WAVES({
+  el: "#landing",
+  mouseControls: true,
+  touchControls: true,
+  minHeight: 200.00,
+  minWidth: 200.00,
+  scale: 1.0,
+  scaleMobile: 1.0,
+  color: 0x2563eb
+});
+
+// Dark/Light Toggle
+function toggleTheme(){
+    const body = document.body;
+    body.classList.toggle('light');
+    body.classList.toggle('dark');
+}
+
+// Typing Animation
+const texts = ["Welcome to PlayWithMe", "Games & Fun", "Your Resume Portal"];
+let i = 0, j = 0, currentText = '', isDeleting = false;
+const speed = 100;
+
+function type() {
+  const element = document.getElementById('animated-text');
+  if(!isDeleting && j < texts[i].length){
+    currentText += texts[i][j]; j++;
+  } else if(isDeleting && j > 0){
+    currentText = currentText.slice(0, -1); j--;
+  }
+  element.textContent = currentText;
+
+  if(j === texts[i].length) { isDeleting = true; } 
+  if(j === 0 && isDeleting) { isDeleting = false; i = (i+1)%texts.length; }
+
+  setTimeout(type, isDeleting ? speed/2 : speed);
+}
+type();
+</script>
+
 </body>
 </html>
