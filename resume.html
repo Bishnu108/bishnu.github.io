@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>John Doe | Resume</title>
+<style>
+/* Fonts and Reset */
+* { box-sizing: border-box; margin:0; padding:0; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s; }
+body.light { background: #f3f4f6; color: #111827; }
+body.dark { background: #0f172a; color: #e2e8f0; }
+
+/* Navbar */
+nav { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; position:sticky; top:0; z-index:100; background: rgba(0,0,0,0.05); }
+nav h1 { color:#2563eb; cursor:pointer; }
+nav button { padding:8px 14px; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
+body.light nav button { background:#2563eb; color:white; }
+body.dark nav button { background:#22d3ee; color:#0f172a; }
+
+/* Sections */
+section { max-width:900px; margin:50px auto; padding:20px; }
+h2 { color:#2563eb; margin-bottom:10px; }
+ul { list-style: square; margin-left:20px; margin-top:10px; }
+
+/* Cards / Boxes */
+.box { background: rgba(255,255,255,0.05); padding:15px 20px; border-radius:12px; margin-bottom:20px; }
+body.light .box { background:#ffffff; border:1px solid #d1d5db; }
+
+/* Footer */
+footer { text-align:center; padding:20px; font-size:0.9rem; opacity:0.8; }
+
+/* Links */
+a { color:#2563eb; text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+</style>
+</head>
+<body class="light">
+
+<nav>
+  <div class="logo">PlayWithMe</div>
+  <div class="menu">
+    <a href="index.html">Home</a>
+    <a href="resume.html">Resume</a>
+    <a href="projects.html">Projects</a>
+    <button onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+</nav>
+
+
+<section id="about" class="box">
+  <h2>About Me</h2>
+  <p>Hi! I'm John Doe, a passionate Web Developer and Open Source Enthusiast. I love building clean, responsive, and modern web applications.</p>
+</section>
+
+<section id="skills" class="box">
+  <h2>Skills</h2>
+  <ul>
+    <li>HTML, CSS, JavaScript</li>
+    <li>React, Node.js</li>
+    <li>Python, Django</li>
+    <li>Git & GitHub</li>
+    <li>Responsive Web Design</li>
+  </ul>
+</section>
+
+<section id="experience" class="box">
+  <h2>Experience</h2>
+  <p><strong>Software Developer</strong> at ABC Corp (2023-Present)</p>
+  <p><strong>Frontend Developer Intern</strong> at XYZ Solutions (2022-2023)</p>
+</section>
+
+<section id="education" class="box">
+  <h2>Education</h2>
+  <p>B.Tech in Computer Science, XYZ University (2020)</p>
+</section>
+
+<section id="contact" class="box">
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:john@example.com">john@example.com</a></p>
+  <p>Phone: +91 1234567890</p>
+  <p>GitHub: <a href="https://github.com/johndoe" target="_blank">https://github.com/johndoe</a></p>
+  <p>LinkedIn: <a href="https://linkedin.com/in/johndoe" target="_blank">https://linkedin.com/in/johndoe</a></p>
+</section>
+
+<footer>
+  © 2025 John Doe — Built with ❤️ | <a href="#about">Back to Top</a>
+</footer>
+
+<script>
+function toggleTheme(){
+  const body = document.body;
+  if(body.classList.contains('light')){
+    body.classList.remove('light');
+    body.classList.add('dark');
+  } else {
+    body.classList.remove('dark');
+    body.classList.add('light');
+  }
+}
+</script>
+
+</body>
+</html>
