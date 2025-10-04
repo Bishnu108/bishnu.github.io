@@ -9,7 +9,7 @@ body {
   margin:0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #000000; /* Pure black background */
-  color: #FFFFFF;
+  color: #00ffff; /* default text color */
   overflow-x: hidden;
 }
 
@@ -47,14 +47,17 @@ nav .menu button {
   text-align:center;
 }
 
-/* Crystal-like Hero Text */
+/* Glowing Crystal Hero Text */
 #hero-text {
   font-size:4rem;
   font-weight:900;
-  background: linear-gradient(45deg, #00ffff, #ffffff, #00ffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  color:#00ffff; /* Cyan */
+  text-shadow: 
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 40px #00ffff,
+    0 0 60px #00ffff;
   transition: transform 0.3s ease, opacity 0.3s ease;
   cursor: default;
 }
@@ -79,4 +82,57 @@ nav .menu button {
   background:#00ffff;
   color:#000000;
   text-decoration:none;
-  font-weight:
+  font-weight:600;
+  border-radius:8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #00ffff;
+}
+
+/* Footer */
+footer {
+  background:#000000;
+  color:#00ffff;
+  text-align:center;
+  padding:20px;
+  font-size:0.9rem;
+}
+a { color:#00ffff; text-decoration:none; }
+a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo" onclick="location.href='landing.html'">PlayWithMe</div>
+  <div class="menu">
+    <a href="landing.html">Home</a>
+    <a href="resume.html">Resume</a>
+    <a href="projects.html">Projects</a>
+    <button onclick="toggleTheme()">Toggle Theme</button>
+  </div>
+</nav>
+
+<!-- Landing Hero Section -->
+<section id="landing">
+  <h1 id="hero-text">Welcome to My Page</h1>
+  <p>Network Engineer | IT Professional</p>
+  <div class="buttons">
+    <a href="resume.html" class="btn">View Resume</a>
+    <a href="projects.html" class="btn">View Projects</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  © 2025 Bishnu Narayan — Built with ❤️ | <a href="#landing">Back to Top</a>
+</footer>
+
+<script>
+// Optional Dark/Light toggle
+function toggleTheme(){
+    const body = document.body;
+    if(body.style.backgroundColor === 'black' || body.style.backgroundColor === ''){
