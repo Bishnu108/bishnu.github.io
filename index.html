@@ -1,101 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PlayWithMe | Welcome</title>
-<link rel="stylesheet" href="style.css">
-<style>
-/* Colors */
-body.light { background:#0a0a0a; color:white; }
-body.dark { background:#000000; color:white; }
-html { scroll-behavior: smooth; }
-
-/* Navbar */
-nav { display:flex; justify-content:space-between; align-items:center; padding:15px 30px; background: rgba(0,0,0,0.7); position:sticky; top:0; z-index:100; }
-nav .logo { font-weight:700; font-size:1.5rem; color:#FF6B00; cursor:pointer; }
-nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:inherit; }
-nav .menu button { margin-left:20px; padding:6px 12px; border:none; border-radius:6px; cursor:pointer; font-weight:600; }
-body.light nav button { background:#FF6B00; color:white; }
-body.dark nav button { background:#FF6B00; color:white; }
-
-/* Landing Section */
-#landing { display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; text-align:center; position:relative; z-index:1; }
-#landing h1 { font-size:3rem; color:#FF6B00; margin-bottom:20px; text-shadow:2px 2px 10px rgba(0,0,0,0.7); }
-#landing p { font-size:1.2rem; margin-bottom:40px; }
-
-/* Buttons */
-.buttons { display:flex; gap:30px; flex-wrap:wrap; justify-content:center; }
-.btn { padding:15px 30px; border-radius:12px; text-decoration:none; font-weight:600; font-size:1.1rem; transition: transform 0.3s, box-shadow 0.3s; background:#FF6B00; color:white; }
-.btn:hover { transform: scale(1.1); box-shadow:0 10px 25px rgba(255,107,0,0.7); background:#FF8A33; }
-</style>
-</head>
-<body class="light">
-
-<nav>
-  <div class="logo" onclick="location.href='index.html'">Bishnu's page</div>
-  <div class="menu">
-    <a href="resume.html">Resume</a>
-    <a href="projects.html">Projects</a>
-    <button onclick="toggleTheme()">Toggle Theme</button>
-  </div>
-</nav>
-
-<section id="landing">
-  <h1 id="animated-text">Welcome to My Page</h1>
-  <p>Network Engineer | IT Professional | Cybersecurity Enthusiast</p>
+<section id="landing" style="text-align:center; padding:150px 20px;">
+  <h1 id="hero-text">Welcome to My Page</h1>
+  <p>Network Engineer | IT Professional</p>
   <div class="buttons">
     <a href="resume.html" class="btn">View Resume</a>
     <a href="projects.html" class="btn">View Projects</a>
   </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
-
-<script>
-// Vanta.js Animated Background
-VANTA.WAVES({
-  el: "#landing",
-  mouseControls: true,
-  touchControls: true,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.0,
-  scaleMobile: 1.0,
-  color: 0xFF6B00, // Orange waves
-  shininess: 50,
-  waveHeight: 20
-});
-
-// Dark/Light Toggle
-function toggleTheme(){
-    const body = document.body;
-    body.classList.toggle('light');
-    body.classList.toggle('dark');
+<style>
+#hero-text {
+  font-size: 3rem;
+  color: #FF6B00;
+  transition: opacity 0.5s ease, transform 0.3s ease;
+  cursor: default;
 }
 
-// Typing Animation
-const texts = ["Welcome to My Page", "Your Resume Portal"];
-let i = 0, j = 0, currentText = '', isDeleting = false;
-const speed = 150;
-
-function type() {
-  const element = document.getElementById('animated-text');
-  if(!isDeleting && j < texts[i].length){
-    currentText += texts[i][j]; j++;
-  } else if(isDeleting && j > 0){
-    currentText = currentText.slice(0, -1); j--;
-  }
-  element.textContent = currentText;
-
-  if(j === texts[i].length) { isDeleting = true; } 
-  if(j === 0 && isDeleting) { isDeleting = false; i = (i+1)%texts.length; }
-
-  setTimeout(type, isDeleting ? speed/2 : speed);
+#hero-text:hover {
+  opacity: 0.3;       /* Fade out effect */
+  transform: scale(1.05); /* Slight zoom for effect */
 }
-type();
-</script>
 
-</body>
-</html>
+/* Buttons */
+.btn {
+  margin: 10px;
+  padding: 10px 20px;
+  background: #FF6B00;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #FF6B00;
+}
+</style>
