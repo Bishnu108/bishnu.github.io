@@ -4,18 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PlayWithMe | Landing</title>
-<link rel="stylesheet" href="style.css">
 <style>
-/* Body & Theme */
-body.light {
-  background:#000000; /* Black background */
-  color:#FF6B00;      /* Orange text */
+body {
+  margin:0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000000; /* Pure black background */
+  color: #FFFFFF;
+  overflow-x: hidden;
 }
-body.dark {
-  background:#0a0a0a; /* Slightly lighter black */
-  color:#FF6B00;
-}
-html { scroll-behavior: smooth; }
 
 /* Navbar */
 nav {
@@ -23,13 +19,13 @@ nav {
   justify-content:space-between;
   align-items:center;
   padding:15px 30px;
-  position:sticky;
+  background: rgba(0,0,0,0.9);
+  position: sticky;
   top:0;
   z-index:100;
-  background: rgba(0,0,0,0.9);
 }
-nav .logo { font-weight:700; font-size:1.5rem; color:#FF6B00; cursor:pointer; }
-nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:#FF6B00; }
+nav .logo { font-weight:700; font-size:1.5rem; color:#00ffff; cursor:pointer; }
+nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:#00ffff; }
 nav .menu button {
   margin-left:20px;
   padding:6px 12px;
@@ -37,117 +33,50 @@ nav .menu button {
   border-radius:6px;
   cursor:pointer;
   font-weight:600;
-  background:#FF6B00;
+  background:#00ffff;
   color:#000000;
 }
 
-/* Landing Hero Section */
+/* Landing Section */
 #landing {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
   text-align:center;
-  padding:150px 20px;
-  position:relative;
-  z-index:1;
 }
 
-/* Hero Text */
+/* Crystal-like Hero Text */
 #hero-text {
   font-size:4rem;
-  font-weight:700;
-  color:#FF6B00;
-  margin-bottom:20px;
-  transition: opacity 0.5s ease, transform 0.3s ease;
-  cursor:default;
+  font-weight:900;
+  background: linear-gradient(45deg, #00ffff, #ffffff, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: default;
 }
+
 #hero-text:hover {
-  opacity:0.3;
   transform: scale(1.05);
+  opacity: 0.7;
 }
 
 /* Subtitle */
 #landing p {
   font-size:1.5rem;
-  margin-bottom:40px;
+  margin-top:20px;
+  color:#00ffff;
 }
 
 /* Buttons */
-.buttons { margin-top:20px; }
+.buttons { margin-top:40px; }
 .btn {
   margin: 10px;
   padding: 12px 28px;
-  background:#FF6B00;
+  background:#00ffff;
   color:#000000;
   text-decoration:none;
-  font-weight:600;
-  border-radius:8px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px #FF6B00;
-}
-
-/* Footer */
-footer {
-  background:#000000;
-  color:#FF6B00;
-  text-align:center;
-  padding:20px;
-  font-size:0.9rem;
-}
-a { color:#FF6B00; text-decoration:none; }
-a:hover { text-decoration:underline; }
-</style>
-</head>
-<body class="light">
-
-<!-- Navbar -->
-<nav>
-  <div class="logo" onclick="location.href='landing.html'">PlayWithMe</div>
-  <div class="menu">
-    <a href="landing.html">Home</a>
-    <a href="resume.html">Resume</a>
-    <a href="projects.html">Projects</a>
-    <button onclick="toggleTheme()">Toggle Theme</button>
-  </div>
-</nav>
-
-<!-- Landing Hero Section -->
-<section id="landing">
-  <h1 id="hero-text">Welcome to My Page</h1>
-  <p>Network Engineer | IT Professional</p>
-  <div class="buttons">
-    <a href="resume.html" class="btn">View Resume</a>
-    <a href="projects.html" class="btn">View Projects</a>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer>
-  © 2025 John Doe — Built with ❤️ | <a href="#landing">Back to Top</a>
-</footer>
-
-<!-- Vanta.js Waves Background -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
-<script>
-VANTA.WAVES({
-  el: "#landing",
-  mouseControls: true,
-  touchControls: true,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0xFF6B00
-})
-
-// Dark/Light Toggle
-function toggleTheme(){
-    const body = document.body;
-    body.classList.toggle('light');
-    body.classList.toggle('dark');
-}
-</script>
-
-</body>
-</html>
+  font-weight:
