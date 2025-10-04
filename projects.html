@@ -9,7 +9,7 @@ body {
   margin:0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #000000; /* Black background */
-  color: #00ffff; /* default text color */
+  color: #ff6b00; /* default text color */
   overflow-x: hidden;
 }
 
@@ -24,8 +24,8 @@ nav {
   top:0;
   z-index:100;
 }
-nav .logo { font-weight:700; font-size:1.5rem; color:#00ffff; cursor:pointer; }
-nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:#00ffff; }
+nav .logo { font-weight:700; font-size:1.5rem; color:#ff6b00; cursor:pointer; }
+nav .menu a { margin-left:20px; text-decoration:none; font-weight:500; color:#ff6b00; }
 nav .menu button {
   margin-left:20px;
   padding:6px 12px;
@@ -33,7 +33,7 @@ nav .menu button {
   border-radius:6px;
   cursor:pointer;
   font-weight:600;
-  background:#00ffff;
+  background:#ff6b00;
   color:#000000;
 }
 
@@ -42,8 +42,8 @@ h1 {
   text-align:center;
   margin-top:50px;
   font-size:3rem;
-  color:#00ffff;
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+  color:#ff6b00;
+  text-shadow: 0 0 10px #ff6b00, 0 0 20px #ff6b00, 0 0 30px #ff6b00;
 }
 
 /* Game Buttons */
@@ -56,7 +56,7 @@ h1 {
 .btn {
   margin: 20px;
   padding: 20px 40px;
-  background:#00ffff;
+  background:#ff6b00;
   color:#000000;
   font-weight:600;
   text-decoration:none;
@@ -67,19 +67,19 @@ h1 {
 }
 .btn:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 20px #00ffff;
+  box-shadow: 0 0 20px #ff6b00;
 }
 
 /* Footer */
 footer {
   background:#000000;
-  color:#00ffff;
+  color:#ff6b00;
   text-align:center;
   padding:20px;
   font-size:0.9rem;
   margin-top:50px;
 }
-a { color:#00ffff; text-decoration:none; }
+a { color:#ff6b00; text-decoration:none; }
 a:hover { text-decoration:underline; }
 </style>
 </head>
@@ -91,7 +91,6 @@ a:hover { text-decoration:underline; }
   <div class="menu">
     <a href="index.html">Home</a>
     <a href="resume.html">Resume</a>
-    <button onclick="toggleTheme()">Toggle Theme</button>
   </div>
 </nav>
 
@@ -99,7 +98,6 @@ a:hover { text-decoration:underline; }
   <!-- Hero Section -->
   <header id="home">
     <h1>🎮 Welcome to My Game Zone</h1>
-    <p class="subtitle">Choose your favorite game and start playing instantly!</p>
   </header>
 
   <!-- Game Cards -->
@@ -114,7 +112,7 @@ a:hover { text-decoration:underline; }
     </div>
 
     <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Flappy Jump">
+
       <div class="card-content">
         <h2>🐦 Flappy Jump</h2>
         <p>Tap or press Space to fly through the pipes!</p>
@@ -123,7 +121,7 @@ a:hover { text-decoration:underline; }
     </div>
 
     <div class="card">
-  <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Chess">
+  
   <div class="card-content">
     <h2>♟️ Chess</h2>
     <p>Simple 2-player local chess game.</p>
@@ -133,7 +131,7 @@ a:hover { text-decoration:underline; }
 
 
     <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Coming Soon">
+      
       <div class="card-content">
         <h2>🎯 Coming Soon</h2>
         <p>More games will be added soon!</p>
